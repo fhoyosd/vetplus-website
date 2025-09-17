@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VetPlus | Administrador</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f8f8;
+      color: #000;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background-color: #b9d9d2;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      height: 50px;
+    }
+
+    .logo h1 {
+      font-family: 'Just Me Again Down Here', cursive;
+      font-size: 26px;
+      margin: 0;
+    }
+
+    .btn {
+      background: #7bb1c9;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #fff;
+      transition: transform 0.2s ease, background 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: #5c91a9;
+      transform: scale(1.05);
+    }
+
+    main {
+      padding: 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 25px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0px 6px 12px rgba(0,0,0,0.15);
+    }
+
+    th, td {
+      padding: 14px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #b9d9d2;
+      font-weight: bold;
+    }
+
+    tr:hover {
+      background: #f5f5f5;
+    }
+
+    .actions a {
+      margin-right: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #0077b6;
+    }
+
+    .actions a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Vetplus">
+      <h1>VET PLUS</h1>
+    </div>
+    <a href="{{ url_for('auth.logout') }}" class="btn">Cerrar sesión</a>
+  </header>
+
+  <main>
+    <h1>Bienvenido al panel de administrador!</h1>
+    <a href="{{ url_for('admin.create_user') }}" class="btn">➕ Crear nuevo usuario</a>
+
+    <table>
+      <tr>
+        <th>ID</th><th>Usuario</th><th>Nombre</th><th>Rol</th><th>Email</th><th>Teléfono</th><th>Dirección</th><th>Acciones</th>
+      </tr>
+      {% for u in users %}
+      <tr>
+        <td>{{ u.id }}</td>
+        <td>{{ u.username }}</td>
+        <td>{{ u.name }}</td>
+        {% set role_names = {"admin": "Administrador", "owner": "Dueño", "vet": "Veterinario"} %}
+
+        <td>{{ role_names.get(u.role, u.role) }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.phone }}</td>
+        <td>{{ u.address }}</td>
+        <td class="actions">
+          <a href="{{ url_for('admin.edit_user', user_id=u.id) }}">✏️ Editar</a>
+          <a href="{{ url_for('admin.delete_user', user_id=u.id) }}" onclick="return confirm('¿Eliminar este usuario?')">🗑 Eliminar</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div style="color: red; font-weight: bold; margin-bottom: 15px; text-align: center;">
+            {% for msg in messages %}
+              <p>{{ msg }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+  </main>
+</body>
+</html>

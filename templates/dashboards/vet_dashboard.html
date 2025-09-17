@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vet Plus | Menú</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Abel&family=Inter:wght@400;600&family=Just+Me+Again+Down+Here&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #f0f8f8;
+      color: #000;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      background-color: transparent;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      height: 50px;
+    }
+
+    .logo h1 {
+      font-family: 'Just Me Again Down Here', cursive;
+      font-size: 28px;
+      margin: 0;
+      color: #000;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #000;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* Menú principal */
+    .main {
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    .main h2 {
+      font-family: 'Abel', sans-serif;
+      font-size: 28px;
+      margin-bottom: 40px;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .menu-item {
+      background-color: #b9d9d2;
+      border-radius: 10px;
+      padding: 30px;
+      font-family: 'Abel', sans-serif;
+      font-size: 20px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .menu-item:hover {
+      background-color: #a5c9c2;
+      transform: scale(1.05);
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 300px;
+      width: 90%;
+      box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .modal-buttons {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .modal-buttons button {
+      padding: 8px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .modal-buttons button:first-child {
+      background: #ccc;
+    }
+
+    .modal-buttons button:last-child {
+      background: #b9d9d2;
+    }
+
+    .modal-buttons button:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Modal de cerrar sesión -->
+  <div id="logoutModal" class="modal">
+    <div class="modal-content">
+      <p>¿Seguro que quieres cerrar sesión?</p>
+      <div class="modal-buttons">
+        <button onclick="cerrarModal()">Cancelar</button>
+        <a href="{{ url_for('auth.logout') }}"><button>Cerrar sesión</button></a>
+      </div>
+    </div>
+  </div>
+
+  <header class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Vetplus" class="icono">
+      <h1>VET PLUS</h1>
+    </div>
+    <nav class="nav-links">
+      <a href="#">Consulta</a>
+      <a href="#">Agendamiento</a>
+      <a href="#">Productos</a>
+      <a href="#">Informes</a>
+      <a href="#" onclick="abrirModal()">Salir</a>
+    </nav>
+  </header>
+
+  <!-- Menú principal -->
+  <main class="main">
+    <h2>Bienvenido al panel de Veterinario!</h2>
+    <h2>¿Qué deseas hacer?</h2>
+    <div class="menu-grid">
+      <div class="menu-item">Agendar Consulta</div>
+      <div class="menu-item">Consultas del Día</div>
+      <div class="menu-item">Productos</div>
+      <div class="menu-item">Registros médicos</div>
+      <div class="menu-item">Informes</div>
+      <div class="menu-item">Notificaciones</div>
+    </div>
+  </main>
+
+  <script>
+    function abrirModal() {
+      document.getElementById("logoutModal").style.display = "flex";
+    }
+    function cerrarModal() {
+      document.getElementById("logoutModal").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

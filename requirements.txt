@@ -1,0 +1,1 @@
+requests, flask, python-dotenv, flask_sqlalchemy, flask_bcrypt, flask_login
