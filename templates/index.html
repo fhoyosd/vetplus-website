@@ -107,7 +107,7 @@
       <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Vetplus" class="icono">
       <h1>VET PLUS</h1>
     </div>
-    <a href="/login">
+    <a href="{{ url_for('auth.login') }}">
       <button class="btn">Iniciar sesión</button>
     </a>
   </header>
@@ -120,7 +120,7 @@
         cuidar, proteger y ayudar a tus amigos peludos. En nuestra nueva página web podrás 
         registrarte y seguir en tiempo real el cuidado de tus mascotas.
       </p>
-      <button class="btn">Contáctenos</button>
+      <a href="{{ url_for('main.contacto') }}"><button type="button" class="btn">Contáctenos</button></a>
     </section>
 
     <!-- Galería de fotos -->

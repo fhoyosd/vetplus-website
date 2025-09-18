@@ -1,1 +1,1 @@
-requests, flask, python-dotenv, flask_sqlalchemy, flask_bcrypt, flask_login
+requests, flask, python-dotenv, flask_sqlalchemy, flask_bcrypt, flask_login, flask_mail

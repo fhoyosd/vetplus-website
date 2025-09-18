@@ -69,26 +69,38 @@
 
     .menu-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-      max-width: 800px;
-      margin: 0 auto;
+      grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+      gap: 30px;
+      max-width: 900px;   /* ancho suficiente para 3 columnas */
+      margin: 0 auto;     /* centra el grid */
+      justify-items: center; /* centra cada botón */
     }
 
     .menu-item {
-      background-color: #b9d9d2;
-      border-radius: 10px;
-      padding: 30px;
-      font-family: 'Abel', sans-serif;
-      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #a7d2c6;
+      padding: 25px 35px;
+      border-radius: 25px; /* ovalados */
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
       cursor: pointer;
-      transition: transform 0.2s ease, background 0.3s ease;
+      transition: background-color 0.3s, transform 0.2s;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+      width: 220px;  /* tamaño estándar */
+      height: 90px;  /* altura más equilibrada */
     }
 
     .menu-item:hover {
-      background-color: #a5c9c2;
-      transform: scale(1.05);
+      background-color: #a7d2c6;
+      transform: translateY(-5px);
     }
+
+
 
     /* Modal */
     .modal {
@@ -161,10 +173,10 @@
       <h1>VET PLUS</h1>
     </div>
     <nav class="nav-links">
-      <a href="#">Consulta</a>
+     <a href="{{ url_for('main.consulta') }}">Consulta</a>
       <a href="#">Agendamiento</a>
       <a href="#">Productos</a>
-      <a href="#">Informes</a>
+      <a href="{{ url_for('main.informes') }}">Informes</a>
       <a href="#" onclick="abrirModal()">Salir</a>
     </nav>
   </header>
@@ -175,13 +187,14 @@
     <h2>¿Qué deseas hacer?</h2>
     <div class="menu-grid">
       <div class="menu-item">Agendar Consulta</div>
-      <div class="menu-item">Consultas del Día</div>
+      <a href="{{ url_for('main.consulta') }}" class="menu-item">Consulta del día</a>
       <div class="menu-item">Productos</div>
       <div class="menu-item">Registros médicos</div>
-      <div class="menu-item">Informes</div>
+      <a href="{{ url_for('main.informes') }}" class="menu-item">Informes</a>
       <div class="menu-item">Notificaciones</div>
     </div>
   </main>
+
 
   <script>
     function abrirModal() {
