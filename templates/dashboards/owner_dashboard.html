@@ -1,5 +1,132 @@
-<h2>Bienvenido al panel de dueño!</h2>
-<p>Aquí irá el menú del dueño de mascota.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VetPlus | Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
 
-<!-- logout link -->
-<p><a href="{{ url_for('auth.logout') }}">Cerrar sesión</a></p>
+        nav {
+            background-color: #2a6f6f;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #fff;
+            font-size: 22px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #d1f2f2;
+        }
+
+        /* Contenido */
+        .dashboard-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .dashboard-title {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .dashboard-subtitle {
+            font-size: 16px;
+            margin-bottom: 30px;
+            color: #666;
+        }
+
+        .dashboard-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .btn-dashboard {
+            display: inline-block;
+            padding: 14px 28px;
+            background-color: #4CAF50;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn-dashboard:hover {
+            background-color: #45a049;
+        }
+
+        .logout-section {
+            margin-top: 20px;
+        }
+
+        .btn-logout {
+            color: #c0392b;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .btn-logout:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#" class="logo">VET PLUS</a>
+        <ul>
+            <li><a href="{{ url_for('main.home') }}">Inicio</a></li>
+            <li><a href="{{ url_for('main.contacto') }}">Contacto</a></li>
+            <li><a href="{{ url_for('auth.logout') }}">Cerrar Sesión</a></li>
+        </ul>
+    </nav>
+    <div class="dashboard-container">
+        <h2 class="dashboard-title">Bienvenido al Panel de Dueño</h2>
+        <p class="dashboard-subtitle">Aquí encontrarás todas las opciones disponibles para gestionar tus mascotas.</p>
+
+        <div class="dashboard-buttons">
+            <a href="{{ url_for('pets.pet_list') }}" class="btn-dashboard">🐾 Mascotas</a>
+        </div>
+
+        <div class="logout-section">
+            <a href="{{ url_for('auth.logout') }}" class="btn-logout">Cerrar sesión</a>
+        </div>
+    </div>
+</body>
+</html>

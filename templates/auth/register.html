@@ -181,6 +181,11 @@
     .toggle-password:hover svg {
       color: #0d1b2a;
     }
+    .captcha-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
   </style>
 </head>
 <body>
@@ -246,7 +251,9 @@
           </div>
         </div>
         <!-- Google reCAPTCHA -->
-        <div class="g-recaptcha" data-sitekey="6LfW88grAAAAAMSOiJCLCDxBfhMgHOZGhkbba_GZ" required></div>
+        <div class="captcha-wrapper">
+          <div class="g-recaptcha" data-sitekey="6LfW88grAAAAAMSOiJCLCDxBfhMgHOZGhkbba_GZ" required></div>
+        </div>
         <p id="captchaError" style="color: red; display: none;">Por favor completa el reCAPTCHA.</p>
         <div class="botones">
           <button><a href="{{ url_for('main.home') }}">Cancelar</a></button>
