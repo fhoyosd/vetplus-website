@@ -107,6 +107,7 @@
       <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Vetplus" class="icono">
       <h1>VET PLUS</h1>
     </div>
+      <a href="{{ url_for('store.tienda' )}}"><button class="btn">Tienda</button></a>
       {% if current_user.is_authenticated %}
       <a href="{{ url_for('main.dashboard' )}}"><button class="btn">Dashboard</button></a>
       {% else %}

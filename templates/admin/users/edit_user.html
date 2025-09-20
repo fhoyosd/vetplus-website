@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VetPlus | Crear usuario</title>
+  <title>VetPlus | Editar usuario</title>
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
   <style>
     body {
@@ -66,20 +66,12 @@
       background: #5c91a9;
       transform: scale(1.05);
     }
-
-    .btn-cancelar {
-      background: #34495e;
-    }
-
-    .btn-cancelar:hover {
-      background: #2c3e50;
-    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Panel de Administrador</h1>
-    <h2>Crear Usuario</h2>
+    <h2>Editando usuario: {{ user.username }}</h2>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         <div style="color: red; font-weight: bold; margin-bottom: 15px;">
@@ -90,25 +82,22 @@
       {% endif %}
     {% endwith %}
     <form method="POST">
-      <input type="text" name="name" placeholder="Nombre" required>
-      <input type="text" name="username" placeholder="Nombre de usuario" required>
-      <input type="email" name="email" placeholder="Correo Electrónico" required>
-      <input type="phone" name="phone" placeholder="Teléfono" required>
-      <input type="text" name="address" placeholder="Dirección" required>
+      <input type="text" name="name" value="{{ user.name }}" required>
+      <input type="text" name="username" value="{{ user.username }}" required>
+      <input type="email" name="email" value="{{ user.email }}" required>
+      <input type="phone" name="phone" value="{{ user.phone }}" required>
+      <input type="text" name="address" value="{{ user.address }}" required>
       <select name="role" required>
-        <option value="owner">Dueño</option>
-        <option value="vet">Veterinario</option>
-        <option value="admin">Administrador</option>
+        <option value="owner" {% if user.role == "owner" %}selected{% endif %}>Dueño</option>
+        <option value="vet" {% if user.role == "vet" %}selected{% endif %}>Veterinario</option>
+        <option value="admin" {% if user.role == "admin" %}selected{% endif %}>Administrador</option>
       </select>
-      <input type="password" name="password" placeholder="Contraseña" required>
-      <input type="password" name="confirm_password" placeholder="Confirmar contraseña" required>
+      <input type="password" name="password" placeholder="Nueva contraseña (opcional)">
       <div class="botones">
-        <button><a href="{{ url_for('main.dashboard') }}">Cancelar</a></button>
-        <button class="btn-cancelar" type="reset">Borrar</button>
-        <button type="submit">Crear</button>
+        <button><a href="{{ url_for('users.manage_users') }}">Cancelar</a></button>
+        <button type="submit">Guardar cambios</button>
       </div>
     </form>
   </div>
-  <script src="{{ url_for('static', filename='js/validate_register.js') }}"></script>
 </body>
 </html>

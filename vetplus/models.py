@@ -69,3 +69,30 @@ class ResetToken(db.Model):
     expires_at = db.Column(db.DateTime, nullable = False)
 
     user = db.relationship("User", backref = db.backref("reset_tokens", lazy = True))
+
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(100), unique = True, nullable = False)
+    description = db.Column(db.String(200), nullable = True)
+
+    products = db.relationship("Product", backref = "category", lazy = True)
+
+    def __init__(self, name, description = None):
+        self.name = name
+        self.description = description
+
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(100), nullable = False)
+    description = db.Column(db.Text, nullable = False)
+    price = db.Column(db.Float, nullable = False)
+    stock = db.Column(db.Integer, nullable = False)
+
+    category_id = db.Column(db.Integer, db.ForeignKey("category.id"), nullable = False)
+
+    def __init__(self, name, description, price, stock, category_id):
+        self.name = name
+        self.description = description
+        self.price = price
+        self.stock = stock
+        self.category_id = category_id

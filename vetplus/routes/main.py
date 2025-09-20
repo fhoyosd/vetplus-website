@@ -4,7 +4,7 @@ from flask_mail import Message
 
 from vetplus.extensions import mail
 from vetplus.utils import admin_required
-from vetplus.models import User
+from vetplus.models import User, Product, Category
 
 main_bp = Blueprint("main", __name__)
 

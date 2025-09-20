@@ -12,11 +12,7 @@ def pet_list():
     if current_user.role == "owner":
         pets = Pet.query.filter_by(owner_id = current_user.id).all()
 
-        return render_template("pets/owner_pet_list.html", pets = pets)
-    elif current_user.role == "vet":
-        pets = current_user.patients
-
-        return render_template("pets/vet_pet_list.html", pets = pets)
+        return render_template("pets/manage_pets.html", pets = pets)
     else:
         return "Acceso no autorizado", 403
     

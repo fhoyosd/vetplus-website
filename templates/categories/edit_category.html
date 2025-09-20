@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VetPlus | Editar usuario</title>
+  <title>Vet Plus | Editar Categoría</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
   <style>
     body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      background: #f0f8f8;
+      font-family: 'Poppins', sans-serif;
+      background: #f4f8f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
     a {
@@ -26,21 +31,23 @@
       box-shadow: 0px 6px 16px rgba(0,0,0,0.25);
     }
 
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
     h1, h2 {
       text-align: center;
     }
 
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    input, select {
-      padding: 15px;
-      font-size: 18px;
-      border: 2px solid #555;
+    input {
+      width: 100%;
+      padding: 10px;
+      max-width: 100%;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
       border-radius: 8px;
+      font-size: 18px;
     }
 
     .botones {
@@ -66,20 +73,13 @@
       background: #5c91a9;
       transform: scale(1.05);
     }
-
-    .btn-cancelar {
-      background: #34495e;
-    }
-
-    .btn-cancelar:hover {
-      background: #2c3e50;
-    }
   </style>
 </head>
+
 <body>
   <div class="container">
-    <h1>Panel de Administrador</h1>
-    <h2>Editando usuario: {{ user.username }}</h2>
+    <h1>Panel de administrador</h1>
+    <h2>Editando categoria: {{ category.name }}</h2>
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         <div style="color: red; font-weight: bold; margin-bottom: 15px;">
@@ -90,22 +90,14 @@
       {% endif %}
     {% endwith %}
     <form method="POST">
-      <input type="text" name="name" value="{{ user.name }}" required>
-      <input type="text" name="username" value="{{ user.username }}" required>
-      <input type="email" name="email" value="{{ user.email }}" required>
-      <input type="phone" name="phone" value="{{ user.phone }}" required>
-      <input type="text" name="address" value="{{ user.address }}" required>
-      <select name="role" required>
-        <option value="owner" {% if user.role == "owner" %}selected{% endif %}>Dueño</option>
-        <option value="vet" {% if user.role == "vet" %}selected{% endif %}>Veterinario</option>
-        <option value="admin" {% if user.role == "admin" %}selected{% endif %}>Administrador</option>
-      </select>
-      <input type="password" name="password" placeholder="Nueva contraseña (opcional)">
+      <input type="text" name="name" value="{{ category.name }}" required>
+      <input type="text" name="description" value="{{ category.description }}" required>
       <div class="botones">
-        <button><a href="{{ url_for('main.dashboard') }}">Cancelar</a></button>
+        <button><a href="{{ url_for('category.manage_categories') }}">Cancelar</a></button>
         <button type="submit">Guardar cambios</button>
       </div>
     </form>
   </div>
 </body>
+
 </html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VetPlus | Gestionar Usuarios</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f8f8;
+            color: #000;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #b9d9d2;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .logo h1 {
+            font-family: 'Just Me Again Down Here', cursive;
+            font-size: 26px;
+            margin: 0;
+        }
+
+        .btn {
+            background: #7bb1c9;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #fff;
+            transition: transform 0.2s ease, background 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #5c91a9;
+            transform: scale(1.05);
+        }
+
+        main {
+            padding: 40px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 26px;
+            margin-bottom: 25px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        form {
+            background: #f8f9f9;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            /* separación uniforme entre campos */
+        }
+
+        form h2 {
+            margin-bottom: 10px;
+            font-size: 20px;
+            color: #333;
+        }
+
+        form label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #444;
+        }
+
+        form input,
+        form select {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            padding: 12px 14px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        form input:focus,
+        form select:focus {
+            border-color: #74b9ff;
+            box-shadow: 0 0 0 2px rgba(116, 185, 255, 0.3);
+            outline: none;
+        }
+
+        form button {
+            background: #74b9ff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        form button:hover {
+            background: #0984e3;
+        }
+
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+            align-self: start;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #b9d9d2;
+            font-weight: bold;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        th.actions-col,
+        td.actions-col {
+            width: 150px;
+            text-align: center;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .btn-edit,
+        .btn-delete {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .btn-edit {
+            background: #3498db;
+            color: #fff;
+        }
+
+        .btn-edit:hover {
+            background: #2980b9;
+        }
+
+        .btn-delete {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .btn-delete:hover {
+            background: #c0392b;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Vetplus">
+            <h1>VET PLUS</h1>
+        </div>
+        <a href="{{ url_for('admin.dashboard') }}" class="btn">Volver al Panel</a>
+    </header>
+
+    <main>
+        <h1>Gestionar Usuarios</h1>
+
+        <div class="container">
+            <!-- Formulario creación -->
+            <form method="POST" action="{{ url_for('users.create_user') }}">
+                <h2>Crear nuevo usuario</h2>
+                <label>Nombre</label>
+                <input type="text" name="name" required>
+
+                <label>Usuario</label>
+                <input type="text" name="username" required>
+
+                <label>Contraseña</label>
+                <input type="password" name="password" required>
+
+                <label>Rol</label>
+                <select name="role" required>
+                    <option value="admin">Administrador</option>
+                    <option value="vet">Veterinario</option>
+                    <option value="owner">Dueño</option>
+                </select>
+
+                <label>Email</label>
+                <input type="email" name="email">
+
+                <label>Teléfono</label>
+                <input type="text" name="phone">
+
+                <label>Dirección</label>
+                <input type="text" name="address">
+
+                <button type="submit">➕ Crear Usuario</button>
+            </form>
+
+            <!-- Lista usuarios -->
+            <div>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Nombre</th>
+                        <th>Rol</th>
+                        <th>Email</th>
+                        <th class="actions-col">Acciones</th>
+                    </tr>
+                    {% for u in users %}
+                    <tr>
+                        <td>{{ u.id }}</td>
+                        <td>{{ u.username }}</td>
+                        <td>{{ u.name }}</td>
+                        {% set role_names = {"admin": "Administrador", "owner": "Dueño", "vet": "Veterinario"} %}
+                        <td>{{ role_names.get(u.role, u.role) }}</td>
+                        <td>{{ u.email }}</td>
+                        <td class="actions-col">
+                            <div class="actions">
+                                <a href="{{ url_for('users.edit_user', user_id=u.id) }}" class="btn-edit">✏️ Editar</a>
+                                <a href="{{ url_for('users.delete_user', user_id=u.id) }}"onclick="return confirm('¿Eliminar este usuario?')" class="btn-delete">🗑 Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div style="color: red; font-weight: bold; margin-top: 15px; text-align: center;">
+            {% for msg in messages %}
+            <p>{{ msg }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+    </main>
+</body>
+
+</html>

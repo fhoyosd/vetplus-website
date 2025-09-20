@@ -6,6 +6,10 @@ from vetplus.routes.auth import auth_bp
 from vetplus.routes.main import main_bp
 from vetplus.routes.admin import admin_bp
 from vetplus.routes.pets import pets_bp
+from vetplus.routes.category import category_bp
+from vetplus.routes.products import products_bp
+from vetplus.routes.users import users_bp
+from vetplus.routes.store import store_bp
 
 def create_app():
     app = Flask(__name__)
@@ -33,6 +37,10 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(admin_bp)
     app.register_blueprint(pets_bp)
+    app.register_blueprint(category_bp)
+    app.register_blueprint(products_bp)
+    app.register_blueprint(users_bp)
+    app.register_blueprint(store_bp)
 
     with app.app_context():
         db.create_all()
