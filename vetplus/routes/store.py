@@ -23,22 +23,4 @@ def tienda():
     products = query.all()
     categories = Category.query.all()
 
-    return render_template("store.html", products = products, categories = categories, category_id = category_id, min_price = min_price, max_price = max_price)
-
-@store_bp.route("/add_to_cart/<int:product_id>")
-def add_to_cart(product_id):
-    if not current_user.is_authenticated:
-        flash("Debes iniciar sesión para añadir productos al carrito.", "warning")
-        return redirect(url_for("auth.login"))
-
-    product = Product.query.get_or_404(product_id)
-    if product.stock <= 0:
-        flash("Este producto está agotado.", "danger")
-        return redirect(url_for("store.tienda"))
-
-    # Aquí va tu lógica de carrito (puedes guardarlo en sesión o tabla)
-    cart = session.get("cart", [])
-    cart.append(product_id)
-    session["cart"] = cart
-    flash(f"{product.name} añadido al carrito.", "success")
-    return redirect(url_for("store.tienda"))
+    return render_template("store/store.html", products = products, categories = categories, category_id = category_id, min_price = min_price, max_price = max_price)

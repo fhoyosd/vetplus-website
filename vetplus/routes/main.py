@@ -1,17 +1,15 @@
-from flask import Blueprint, render_template, redirect, session, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user
 from flask_mail import Message
 
 from vetplus.extensions import mail
 from vetplus.utils import admin_required
-from vetplus.models import User, Product, Category
+from vetplus.models import User
 
 main_bp = Blueprint("main", __name__)
 
 @main_bp.route("/")
 def home():
-    if "username" in session:
-        return redirect(url_for("dashboard"))
     return render_template("index.html")
 
 
@@ -20,19 +18,19 @@ def home():
 def dashboard():
     if current_user.role == "owner":
         return render_template("dashboards/owner_dashboard.html",
-                               username=current_user,
-                               name=current_user.name)
+                               username = current_user,
+                               name = current_user.name)
     elif current_user.role == "admin":
         admin_required()
         users = User.query.all()
         return render_template("dashboards/admin_dashboard.html",
-                               username=current_user,
-                               name=current_user.name,
-                               users=users)
+                               username = current_user,
+                               name = current_user.name,
+                               users = users)
     else:
         return render_template("dashboards/vet_dashboard.html",
-                               username=current_user,
-                               name=current_user.name)
+                               username = current_user,
+                               name = current_user.name)
 
 @main_bp.route("/informes")
 def informes():

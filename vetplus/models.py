@@ -21,7 +21,7 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.String(20), nullable = False)
     address = db.Column(db.String(200), nullable = False)
 
-    pets = db.relationship("Pet", backref = "owner", lazy = True)
+    pets = db.relationship("Pet", backref = "owner", cascade = "all, delete-orphan")
 
     patients = db.relationship(
         "Pet",
@@ -46,7 +46,7 @@ class Pet(db.Model):
     age = db.Column(db.Integer, nullable = False)
     weight = db.Column(db.Float, nullable = False)
 
-    owner_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable = False)
+    owner_id = db.Column(db.Integer, db.ForeignKey("user.id", ondelete = "CASCADE"), nullable=False)
 
     veterinarians = db.relationship(
         "User",

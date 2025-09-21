@@ -49,7 +49,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, password):
             login_user(user)
 
-            return redirect(url_for("main.dashboard"))
+            return redirect(url_for("main.home"))
         else:
             flash("Usuario o contraseña incorrectos")
         
