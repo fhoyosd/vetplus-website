@@ -54,5 +54,32 @@ def contacto():
     return render_template("contacto.html")
 
 @main_bp.route("/consulta")
-def consulta():
+def consulta(): 
     return render_template("dashboards/consultas/nueva_consulta.html")
+#no borren esto sirve para conectar el agendamiento de citas
+    """mascota = request.form.get("nombredemascota")
+    dueno = request.form.get("nombrededueno")
+    datos = request.form.get("datosdeconsulta")
+    hora = request.form.get("hora")
+    vet = request.form.get("veterinario")
+
+    nueva = consulta(
+        nombredemascota=mascota,
+        nombrededueno=dueno,
+        datosdeconsulta=datos,
+        hora=hora,
+        veterinario=vet
+    )
+    db.session.add(nueva)
+    db.session.commit()
+    flash("consulta agendada correctamente", "success")
+    return redirect(url_for("main.consulta_dia"))"""
+
+@main_bp.route("/consulta_dia")
+def consulta_dia():
+    #consultas = consulta.query.all()
+    return render_template("dashboards/consultas/consulta_dia.html")#, consultas=consultas
+
+@main_bp.route("/registro_medico")
+def registro_medico():
+    return render_template("dashboards/consultas/registro_medico.html")

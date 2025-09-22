@@ -1,16 +1,16 @@
 from flask import Flask
 
-from vetplus.extensions import db, bcrypt, login_manager, mail, migrate
+from vetplus.extensions import db, bcrypt, login_manager, mail
 from vetplus.models import User
 from vetplus.routes.auth import auth_bp
 from vetplus.routes.main import main_bp
-from vetplus.routes.admin import admin_bp
 from vetplus.routes.pets import pets_bp
 from vetplus.routes.category import category_bp
 from vetplus.routes.products import products_bp
 from vetplus.routes.users import users_bp
 from vetplus.routes.store import store_bp
 from vetplus.routes.cart import cart_bp
+from vetplus.routes.checkout import checkout_bp
 
 def create_app():
     app = Flask(__name__)
@@ -29,7 +29,6 @@ def create_app():
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
-    migrate.init_app(app, db)
 
     login_manager.login_view = "auth.login"
     login_manager.login_message_category = "info"
@@ -37,13 +36,13 @@ def create_app():
     # Blueprints
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)
-    app.register_blueprint(admin_bp)
     app.register_blueprint(pets_bp)
     app.register_blueprint(category_bp)
     app.register_blueprint(products_bp)
     app.register_blueprint(users_bp)
     app.register_blueprint(store_bp)
     app.register_blueprint(cart_bp)
+    app.register_blueprint(checkout_bp)
 
     with app.app_context():
         db.create_all()

@@ -36,8 +36,6 @@ def generate_reset_token(user_id):
 
     return token
 
-
-
 def send_reset_email(user, token):
     reset_link = f"http://127.0.0.1:5000/reset_password/{token}"
     msg = Message("Recupera tu contraseña - Vet Plus", recipients = [user.email])

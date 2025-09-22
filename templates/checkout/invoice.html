@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VetPlus | Factura #{{ order.id }}</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f6f6f6;
+            padding: 20px;
+        }
+
+        .invoice-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 800px;
+            margin: auto;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-bottom: 5px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .info-box {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .flex {
+            display: flex;
+            gap: 20px;
+        }
+
+        .summary {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .summary table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .summary td {
+            padding: 6px 0;
+        }
+
+        .summary td:last-child {
+            text-align: right;
+        }
+
+        .summary .total {
+            font-weight: bold;
+            border-top: 1px solid #ddd;
+            padding-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-container">
+        <div class="header">
+            <div>
+                <strong>Fecha del pedido:</strong> {{ order.created_at.strftime('%d/%m/%Y %H:%M') }}<br>
+                <strong>N.º de pedido:</strong> {{ order.id }}
+            </div>
+            <div>
+                <h2>Resumen del pedido</h2>
+            </div>
+        </div>
+
+        <div class="flex">
+            <div class="section" style="flex:1;">
+                <h3>Enviar a</h3>
+                <div class="info-box">
+                    {{ user.name }}<br>
+                    {{ user.address }}<br>
+                    {{ user.phone }}
+                </div>
+            </div>
+            <div class="section" style="flex:1;">
+                <h3>Método de pago</h3>
+                <div class="info-box">
+                    {{ order.payment_method }}
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>Resumen del pedido</h3>
+            <div class="summary">
+                <h2>Resumen del pedido</h2>
+
+                <table style="width:100%; border-collapse: collapse; margin-top: 15px;">
+                    <thead>
+                        <tr style="background: #f0f0f0; text-align: left;">
+                            <th style="padding: 8px; border: 1px solid #ddd;">ID</th>
+                            <th style="padding: 8px; border: 1px solid #ddd;">Nombre</th>
+                            <th style="padding: 8px; border: 1px solid #ddd;">Cantidad</th>
+                            <th style="padding: 8px; border: 1px solid #ddd;">Precio unitario</th>
+                            <th style="padding: 8px; border: 1px solid #ddd;">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for detail in order.details %}
+                        <tr>
+                            <td style="padding: 8px; border: 1px solid #ddd;">{{ detail.product.id }}</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">{{ detail.product.name }}</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">{{ detail.quantity }}</td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">${{ "%.2f"|format(detail.product.price) }}
+                            </td>
+                            <td style="padding: 8px; border: 1px solid #ddd;">${{ "%.2f"|format(detail.subtotal) }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 20px; text-align: right;">
+                    <p><strong>Total: </strong>${{ "%.2f"|format(order.total) }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

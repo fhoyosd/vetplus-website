@@ -95,6 +95,22 @@
         form button:hover {
             background: #1f5454;
         }
+        .btn {
+            background-color: #c5e1da;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            font-family: 'Lucida Console', monospace;
+            transition: transform 0.2s ease, background 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #a7d2c6;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -102,6 +118,11 @@
         <div class="logo">
             <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Vetplus" class="icono">
             <h1>VET PLUS</h1>
+        </div>
+        <div class="menu-grid">
+            <a href="{{ url_for('main.home')}}">
+                <button class="btn">Inicio</button>
+            </a>
         </div>
     </header>
     <main>

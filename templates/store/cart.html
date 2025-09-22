@@ -210,7 +210,7 @@
         <div class="total">Total: ${{ total }}</div>
         <br>
         <a href="{{ url_for('cart.clear_cart') }}" class="btn btn-warning">Vaciar Carrito</a>
-        <a href="#" class="btn btn-success">Finalizar Compra</a>
+        <a href="{{ url_for('checkout.checkout')}}" class="btn btn-success">Finalizar Compra</a>
     </div>
     {% else %}
     <p class="empty">No tienes productos en el carrito.</p>
