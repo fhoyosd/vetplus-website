@@ -74,7 +74,7 @@
 
     <h1>¡Compra Exitosa 🎉!</h1>
     <p>Tu pedido con ID <strong>{{ order_id }}</strong> fue confirmado.</p>
-    <p>Hemos enviado un correo de confirmación con los detalles de tu compra y tu factura en PDF.</p>
+    <p>Hemos enviado un correo de confirmación con los detalles de tu compra.</p>
     <div class="buttons">
         <a href="{{ url_for('checkout.invoice', order_id=order_id) }}" class="btn">Ver recibo</a>
         <a href="{{ url_for('store.tienda') }}" class="btn">Volver a la tienda</a>
