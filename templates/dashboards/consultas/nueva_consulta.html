@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +20,8 @@
             align-items: center;
             padding: 10px 40px;
             max-width: 90%;
-            margin: 15px auto 0 auto; /* centrado */
+            margin: 15px auto 0 auto;
+            /* centrado */
         }
 
         .logo {
@@ -141,8 +143,64 @@
         .submit:hover {
             background-color: #3d7b8d;
         }
+
+        /* Fondo oscuro del modal */
+        .modal {
+            display: none;
+            /* Oculto por defecto */
+            position: fixed;
+            z-index: 1000;
+            /* por encima del resto */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* fondo semitransparente */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenedor del modal */
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Botones dentro del modal */
+        .modal-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .modal-buttons button:first-child {
+            background-color: #ccc;
+        }
+
+        .modal-buttons button:last-child {
+            background-color: #d9534f;
+            color: white;
+        }
+
+        .modal-buttons button:hover {
+            transform: scale(1.05);
+        }
     </style>
 </head>
+
 <body>
     <header>
         <div class="logo">
@@ -150,36 +208,64 @@
             <h1>VET PLUS</h1>
         </div>
         <nav>
-            <a href="#">Consulta</a>
-            <a href="#">Agendamiento</a>
-            <a href="#">Productos</a>
+            <a href="{{ url_for('main.home')}}">Inicio</a>
+            <a href="{{url_for('main.dashboard')}}">Menu</a>
+            <a href="{{ url_for('main.consulta_dia')}}">Consulta</a>
+            <a href="{{ url_for('store.tienda')}}">Productos</a>
             <a href="{{ url_for('main.informes') }}">Informes</a>
-            <a href="#">Salir</a>
+            <a href="#" onclick="abrirModal()">Salir</a>
         </nav>
     </header>
 
-    <div class="title-bar">Nueva Consulta</div>
+    <div class="title-bar">Agendar Consulta</div>
 
     <div class="container">
         <div class="sidebar">
             <p>Agendamiento</p>
-            <a href="#">Nueva Consulta</a>
-            <a href="#">Agendar Consulta</a>
+            <a href="#" onclick="nuevaconsulta()">Nueva Consulta</a>
             <a href="#">Cancelar Consulta</a>
         </div>
 
         <div class="form-container">
             <h2>Complete los datos de la consulta</h2>
-            <input type="text" placeholder="Nombre de Mascota">
-            <input type="text" placeholder="Nombre de dueño">
-            <input type="text" placeholder="Datos de Consulta">
-            <input type="text" placeholder="Hora">
-            <input type="text" placeholder="Veterinário">
-            <div class="buttons">
-                <button class="cancel">Cancelar</button>
-                <button class="submit">Agendar</button>
+            <form id="consultaForm">
+                <input type="text" placeholder="Nombre de Mascota">
+                <input type="text" placeholder="Nombre de dueño">
+                <input type="text" placeholder="Datos de Consulta">
+                <input type="text" placeholder="Hora">
+                <input type="text" placeholder="Veterinário">
+                <div class="buttons">
+                    <button type="button" class="cancel" onclick="nuevaconsulta()">Cancelar</button>
+                    <button class="submit">Agendar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de cerrar sesión -->
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <p>¿Seguro que quieres cerrar sesión?</p>
+            <div class="modal-buttons">
+                <button onclick="cerrarModal()">Cancelar</button>
+                <a href="{{ url_for('auth.logout') }}"><button>Cerrar sesión</button></a>
             </div>
         </div>
     </div>
+    <script>
+        function abrirModal() {
+            document.getElementById("logoutModal").style.display = "flex";
+        }
+        function cerrarModal() {
+            document.getElementById("logoutModal").style.display = "none";
+        }
+        /* limpia nueva consulta */
+        function nuevaconsulta() {
+            const form = document.getElementById("consultaForm")
+            form.reset(); //limpia todo
+            form.querySelector("input").focus(); //cursor en el primer campo
+        }
+    </script>
 </body>
+
 </html>

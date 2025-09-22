@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vet Plus | Menú</title>
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
-  <link href="https://fonts.googleapis.com/css2?family=Abel&family=Inter:wght@400;600&family=Just+Me+Again+Down+Here&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Abel&family=Inter:wght@400;600&family=Just+Me+Again+Down+Here&display=swap"
+    rel="stylesheet">
+
   <style>
     body {
       margin: 0;
@@ -36,10 +39,10 @@
     }
 
     .logo h1 {
-      font-family: 'Just Me Again Down Here', cursive;
-      font-size: 28px;
-      margin: 0;
-      color: #000;
+      font-size: 26px;
+      font-weight: bold;
+      color: #1a1a1a;
+      font-family: 'monospace', cursive, sans-serif;
     }
 
     .nav-links {
@@ -69,11 +72,15 @@
 
     .menu-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr); /* 3 columnas */
+      grid-template-columns: repeat(3, 1fr);
+      /* 3 columnas */
       gap: 30px;
-      max-width: 900px;   /* ancho suficiente para 3 columnas */
-      margin: 0 auto;     /* centra el grid */
-      justify-items: center; /* centra cada botón */
+      max-width: 900px;
+      /* ancho suficiente para 3 columnas */
+      margin: 0 auto;
+      /* centra el grid */
+      justify-items: center;
+      /* centra cada botón */
     }
 
     .menu-item {
@@ -82,7 +89,8 @@
       justify-content: center;
       background-color: #a7d2c6;
       padding: 25px 35px;
-      border-radius: 25px; /* ovalados */
+      border-radius: 25px;
+      /* ovalados */
       text-align: center;
       font-size: 18px;
       font-weight: bold;
@@ -91,8 +99,10 @@
       text-decoration: none;
       color: #333;
       box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-      width: 220px;  /* tamaño estándar */
-      height: 90px;  /* altura más equilibrada */
+      width: 220px;
+      /* tamaño estándar */
+      height: 90px;
+      /* altura más equilibrada */
     }
 
     .menu-item:hover {
@@ -100,53 +110,55 @@
       transform: translateY(-5px);
     }
 
-
-
-    /* Modal */
+    /* Fondo oscuro del modal */
     .modal {
       display: none;
+      /* Oculto por defecto */
       position: fixed;
       z-index: 1000;
+      /* por encima del resto */
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
-      background-color: rgba(0,0,0,0.6);
+      background-color: rgba(0, 0, 0, 0.5);
+      /* fondo semitransparente */
       justify-content: center;
       align-items: center;
     }
 
+    /* Contenedor del modal */
     .modal-content {
       background: #fff;
-      padding: 20px;
+      padding: 30px;
       border-radius: 12px;
       text-align: center;
-      max-width: 300px;
-      width: 90%;
-      box-shadow: 0px 4px 15px rgba(0,0,0,0.2);
+      width: 300px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
     }
 
+    /* Botones dentro del modal */
     .modal-buttons {
-      margin-top: 20px;
       display: flex;
       justify-content: space-around;
+      margin-top: 20px;
     }
 
     .modal-buttons button {
-      padding: 8px 15px;
+      padding: 10px 20px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
-      transition: transform 0.2s ease, background 0.3s ease;
+      font-weight: bold;
     }
 
     .modal-buttons button:first-child {
-      background: #ccc;
+      background-color: #ccc;
     }
 
     .modal-buttons button:last-child {
-      background: #b9d9d2;
+      background-color: #d9534f;
+      color: white;
     }
 
     .modal-buttons button:hover {
@@ -154,6 +166,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- Modal de cerrar sesión -->
@@ -173,10 +186,7 @@
       <h1>VET PLUS</h1>
     </div>
     <nav class="nav-links">
-     <a href="{{ url_for('main.consulta') }}">Consulta</a>
-      <a href="#">Agendamiento</a>
-      <a href="#">Productos</a>
-      <a href="{{ url_for('main.informes') }}">Informes</a>
+      <a href="{{ url_for('main.home')}}">Inicio</a>
       <a href="#" onclick="abrirModal()">Salir</a>
     </nav>
   </header>
@@ -186,10 +196,10 @@
     <h2>Bienvenido al panel de Veterinario!</h2>
     <h2>¿Qué deseas hacer?</h2>
     <div class="menu-grid">
-      <div class="menu-item">Agendar Consulta</div>
-      <a href="{{ url_for('main.consulta') }}" class="menu-item">Consulta del día</a>
-      <div class="menu-item">Productos</div>
-      <div class="menu-item">Registros médicos</div>
+      <a href="{{ url_for('main.consulta') }}" class="menu-item">Agendar Consulta</a>
+      <a href="{{ url_for('main.consulta_dia')}}" class="menu-item">Consulta del día</a>
+      <a href="{{ url_for('store.tienda')}}" class="menu-item">Productos</a>
+      <a href="{{ url_for('main.registro_medico')}}" class="menu-item">Registro Medico</a>
       <a href="{{ url_for('main.informes') }}" class="menu-item">Informes</a>
       <div class="menu-item">Notificaciones</div>
     </div>
@@ -206,4 +216,5 @@
   </script>
 
 </body>
+
 </html>
