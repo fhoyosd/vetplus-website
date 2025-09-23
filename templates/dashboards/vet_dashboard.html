@@ -2,218 +2,218 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vet Plus | Menú</title>
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Abel&family=Inter:wght@400;600&family=Just+Me+Again+Down+Here&display=swap"
-    rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vet Plus | Menú</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Abel&family=Inter:wght@400;600&family=Just+Me+Again+Down+Here&display=swap"
+        rel="stylesheet">
 
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #f0f8f8;
-      color: #000;
-    }
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f8f8;
+            color: #000;
+        }
 
-    /* Navbar */
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 50px;
-      background-color: transparent;
-    }
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: transparent;
+        }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .logo img {
-      height: 50px;
-    }
+        .logo img {
+            height: 50px;
+        }
 
-    .logo h1 {
-      font-size: 26px;
-      font-weight: bold;
-      color: #1a1a1a;
-      font-family: 'monospace', cursive, sans-serif;
-    }
+        .logo h1 {
+            font-size: 26px;
+            font-weight: bold;
+            color: #1a1a1a;
+            font-family: 'monospace', cursive, sans-serif;
+        }
 
-    .nav-links {
-      display: flex;
-      gap: 30px;
-    }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
 
-    .nav-links a {
-      text-decoration: none;
-      color: #000;
-      font-family: 'Inter', sans-serif;
-      font-size: 16px;
-      cursor: pointer;
-    }
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-    /* Menú principal */
-    .main {
-      text-align: center;
-      margin-top: 50px;
-    }
+        /* Menú principal */
+        .main {
+            text-align: center;
+            margin-top: 50px;
+        }
 
-    .main h2 {
-      font-family: 'Abel', sans-serif;
-      font-size: 28px;
-      margin-bottom: 40px;
-    }
+        .main h2 {
+            font-family: 'Abel', sans-serif;
+            font-size: 28px;
+            margin-bottom: 40px;
+        }
 
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      /* 3 columnas */
-      gap: 30px;
-      max-width: 900px;
-      /* ancho suficiente para 3 columnas */
-      margin: 0 auto;
-      /* centra el grid */
-      justify-items: center;
-      /* centra cada botón */
-    }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* 3 columnas */
+            gap: 30px;
+            max-width: 900px;
+            /* ancho suficiente para 3 columnas */
+            margin: 0 auto;
+            /* centra el grid */
+            justify-items: center;
+            /* centra cada botón */
+        }
 
-    .menu-item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #a7d2c6;
-      padding: 25px 35px;
-      border-radius: 25px;
-      /* ovalados */
-      text-align: center;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.2s;
-      text-decoration: none;
-      color: #333;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-      width: 220px;
-      /* tamaño estándar */
-      height: 90px;
-      /* altura más equilibrada */
-    }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #a7d2c6;
+            padding: 25px 35px;
+            border-radius: 25px;
+            /* ovalados */
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            text-decoration: none;
+            color: #333;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+            width: 220px;
+            /* tamaño estándar */
+            height: 90px;
+            /* altura más equilibrada */
+        }
 
-    .menu-item:hover {
-      background-color: #a7d2c6;
-      transform: translateY(-5px);
-    }
+        .menu-item:hover {
+            background-color: #a7d2c6;
+            transform: translateY(-5px);
+        }
 
-    /* Fondo oscuro del modal */
-    .modal {
-      display: none;
-      /* Oculto por defecto */
-      position: fixed;
-      z-index: 1000;
-      /* por encima del resto */
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      /* fondo semitransparente */
-      justify-content: center;
-      align-items: center;
-    }
+        /* Fondo oscuro del modal */
+        .modal {
+            display: none;
+            /* Oculto por defecto */
+            position: fixed;
+            z-index: 1000;
+            /* por encima del resto */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* fondo semitransparente */
+            justify-content: center;
+            align-items: center;
+        }
 
-    /* Contenedor del modal */
-    .modal-content {
-      background: #fff;
-      padding: 30px;
-      border-radius: 12px;
-      text-align: center;
-      width: 300px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-    }
+        /* Contenedor del modal */
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
 
-    /* Botones dentro del modal */
-    .modal-buttons {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
-    }
+        /* Botones dentro del modal */
+        .modal-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
 
-    .modal-buttons button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+        .modal-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-    .modal-buttons button:first-child {
-      background-color: #ccc;
-    }
+        .modal-buttons button:first-child {
+            background-color: #ccc;
+        }
 
-    .modal-buttons button:last-child {
-      background-color: #d9534f;
-      color: white;
-    }
+        .modal-buttons button:last-child {
+            background-color: #d9534f;
+            color: white;
+        }
 
-    .modal-buttons button:hover {
-      transform: scale(1.05);
-    }
-  </style>
+        .modal-buttons button:hover {
+            transform: scale(1.05);
+        }
+    </style>
 </head>
 
 <body>
 
-  <!-- Modal de cerrar sesión -->
-  <div id="logoutModal" class="modal">
-    <div class="modal-content">
-      <p>¿Seguro que quieres cerrar sesión?</p>
-      <div class="modal-buttons">
-        <button onclick="cerrarModal()">Cancelar</button>
-        <a href="{{ url_for('auth.logout') }}"><button>Cerrar sesión</button></a>
-      </div>
+    <!-- Modal de cerrar sesión -->
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <p>¿Seguro que quieres cerrar sesión?</p>
+            <div class="modal-buttons">
+                <button onclick="cerrarModal()">Cancelar</button>
+                <a href="{{ url_for('auth.logout') }}"><button>Cerrar sesión</button></a>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <header class="navbar">
-    <div class="logo">
-      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Vetplus" class="icono">
-      <h1>VET PLUS</h1>
-    </div>
-    <nav class="nav-links">
-      <a href="{{ url_for('main.home')}}">Inicio</a>
-      <a href="#" onclick="abrirModal()">Salir</a>
-    </nav>
-  </header>
+    <header class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Vetplus" class="icono">
+            <h1>VET PLUS</h1>
+        </div>
+        <nav class="nav-links">
+            <a href="{{ url_for('main.home')}}">Inicio</a>
+            <a href="#" onclick="abrirModal()">Salir</a>
+        </nav>
+    </header>
 
-  <!-- Menú principal -->
-  <main class="main">
-    <h2>Bienvenido al panel de Veterinario!</h2>
-    <h2>¿Qué deseas hacer?</h2>
-    <div class="menu-grid">
-      <a href="{{ url_for('main.consulta') }}" class="menu-item">Agendar Consulta</a>
-      <a href="{{ url_for('main.consulta_dia')}}" class="menu-item">Consulta del día</a>
-      <a href="{{ url_for('store.tienda')}}" class="menu-item">Productos</a>
-      <a href="{{ url_for('main.registro_medico')}}" class="menu-item">Registro Medico</a>
-      <a href="{{ url_for('main.informes') }}" class="menu-item">Informes</a>
-      <div class="menu-item">Notificaciones</div>
-    </div>
-  </main>
+    <!-- Menú principal -->
+    <main class="main">
+        <h2>Bienvenido al panel de Veterinario!</h2>
+        <h2>¿Qué deseas hacer?</h2>
+        <div class="menu-grid">
+            <a href="{{ url_for('main.consulta') }}" class="menu-item">Agendar Consulta</a>
+            <a href="{{ url_for('main.consulta_dia')}}" class="menu-item">Ultimas consultas</a>
+            <a href="{{ url_for('store.tienda')}}" class="menu-item">Productos</a>
+            <a href="{{ url_for('main.registro_medico')}}" class="menu-item">Registro Medico</a>
+            <a href="{{ url_for('main.informes') }}" class="menu-item">Informes</a>
+            <div class="menu-item">Notificaciones</div>
+        </div>
+    </main>
 
 
-  <script>
-    function abrirModal() {
-      document.getElementById("logoutModal").style.display = "flex";
-    }
-    function cerrarModal() {
-      document.getElementById("logoutModal").style.display = "none";
-    }
-  </script>
+    <script>
+        function abrirModal() {
+            document.getElementById("logoutModal").style.display = "flex";
+        }
+        function cerrarModal() {
+            document.getElementById("logoutModal").style.display = "none";
+        }
+    </script>
 
 </body>
 

@@ -38,7 +38,7 @@ class Pet(db.Model):
     age = db.Column(db.Integer, nullable = False)
     weight = db.Column(db.Float, nullable = False)
 
-    owner_id = db.Column(db.Integer, db.ForeignKey("user.id", ondelete = "CASCADE"), nullable=False)
+    owner_id = db.Column(db.Integer, db.ForeignKey("user.id", ondelete = "CASCADE"), nullable = False)
 
     veterinarians = db.relationship(
         "User",
@@ -74,19 +74,15 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable = False)
 
-    # Datos de envío y contacto
     full_name = db.Column(db.String(150), nullable = False)
     address = db.Column(db.String(200), nullable = False)
     phone = db.Column(db.String(20), nullable = False)
 
-    # Método de pago
     payment_method = db.Column(db.String(50), nullable = False)
 
-    # Campos de tarjeta
     card_number = db.Column(db.String(20), nullable = True)
     card_expiry = db.Column(db.String(7), nullable = True)
 
-    # Totales y estado
     created_at = db.Column(db.DateTime, default = datetime.utcnow)
     total = db.Column(db.Float, nullable = False)
     status = db.Column(db.String(20), default = "pending")  # pending, paid, cancelled
@@ -104,3 +100,11 @@ class OrderDetail(db.Model):
     subtotal = db.Column(db.Float, nullable = False)
 
     product = db.relationship("Product")
+
+class Consulta(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    nombredemascota = db.Column(db.String(100), nullable = False)
+    nombrededueno = db.Column(db.String(100), nullable = False)
+    datosdeconsulta = db.Column(db.Text, nullable = False)
+    hora = db.Column(db.String(20), nullable = False)
+    veterinario = db.Column(db.String(100), nullable = False)

@@ -2,99 +2,100 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VetPlus | Administrador</title>
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #f0f8f8;
-      color: #000;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VetPlus | Administrador</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f8f8;
+            color: #000;
+        }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 50px;
-      background-color: #b9d9d2;
-    }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background-color: #b9d9d2;
+        }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-    .logo img {
-      height: 50px;
-    }
+        .logo img {
+            height: 50px;
+        }
 
-    .logo h1 {
-      font-family: 'Just Me Again Down Here', cursive;
-      font-size: 26px;
-      margin: 0;
-    }
+        .logo h1 {
+            font-family: 'Just Me Again Down Here', cursive;
+            font-size: 26px;
+            margin: 0;
+        }
 
-    .btn {
-      background: #7bb1c9;
-      border: none;
-      padding: 12px 25px;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
-      color: #fff;
-      transition: transform 0.2s ease, background 0.3s ease;
-      text-decoration: none;
-    }
+        .btn {
+            background: #7bb1c9;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #fff;
+            transition: transform 0.2s ease, background 0.3s ease;
+            text-decoration: none;
+        }
 
-    .btn:hover {
-      background: #5c91a9;
-      transform: scale(1.05);
-    }
+        .btn:hover {
+            background: #5c91a9;
+            transform: scale(1.05);
+        }
 
-    main {
-      padding: 40px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
+        main {
+            padding: 40px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
-    h1 {
-      font-size: 26px;
-      margin-bottom: 25px;
-      text-align: center;
-    }
+        h1 {
+            font-size: 26px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
 
-    .admin-actions {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-  </style>
+        .admin-actions {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    </style>
 </head>
 
 <body>
-  <header>
-    <div class="logo">
-      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Vetplus">
-      <h1>VET PLUS</h1>
-    </div>
-    <a href="{{ url_for('auth.logout') }}" class="btn">Cerrar sesión</a>
-  </header>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Vetplus">
+            <h1>VET PLUS</h1>
+        </div>
+        <a href="{{ url_for('auth.logout') }}" class="btn">Cerrar sesión</a>
+    </header>
 
-  <main>
-    <h1>Bienvenido al panel de administrador!</h1>
+    <main>
+        <h1>Bienvenido al panel de administrador!</h1>
 
-    <div class="admin-actions">
-      <a href="{{ url_for('users.manage_users') }}" class="btn">👥 Gestionar Usuarios</a>
-      <a href="{{ url_for('products.manage_products') }}" class="btn">📦 Gestionar Productos</a>
-      <a href="{{ url_for('category.manage_categories') }}" class="btn">📂 Gestionar Categorías</a>
-    </div>
-  </main>
+        <div class="admin-actions">
+            <a href="{{ url_for('users.manage_users') }}" class="btn">👥 Gestionar Usuarios</a>
+            <a href="{{ url_for('products.manage_products') }}" class="btn">📦 Gestionar Productos</a>
+            <a href="{{ url_for('category.manage_categories') }}" class="btn">📂 Gestionar Categorías</a>
+            <a href="{{ url_for('orders.manage_orders') }}" class="btn">📂 Gestionar Pedidos</a>
+        </div>
+    </main>
 
 </body>
 
