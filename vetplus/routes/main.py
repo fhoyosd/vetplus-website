@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, jsonify
 from flask_login import login_required, current_user
 from flask_mail import Message
 
@@ -141,3 +141,59 @@ def gestionar_consulta():
     consultas = Consulta.query.all()
 
     return render_template("gestionar_consulta.html", consultas = consultas)
+
+@main_bp.route("/api/consultas")
+def api_consultas():
+    consultas = Consulta.query.all()
+    data = [
+        {
+            "id": c.id,
+            "nombredemascota": c.nombredemascota,
+            "nombrededueno": c.nombrededueno,
+            "datosdeconsulta": c.datosdeconsulta,
+            "hora": c.hora,
+            "veterinario": c.veterinario
+        }
+        for c in consultas
+    ]
+    return jsonify(data)
+
+@main_bp.route("/api/consultas/<int:id>", methods=["GET"])
+def api_consulta_detalle(id):
+    consulta = Consulta.query.get_or_404(id)
+    return jsonify({
+        "id": consulta.id,
+        "nombredemascota": consulta.nombredemascota,
+        "nombrededueno": consulta.nombrededueno,
+        "datosdeconsulta": consulta.datosdeconsulta,
+        "hora": consulta.hora,
+        "veterinario": consulta.veterinario
+    })
+
+
+# --- API: EDITAR CONSULTA ---
+@main_bp.route("/api/consultas/<int:id>", methods=["PUT"])
+def api_consulta_editar(id):
+    consulta = Consulta.query.get_or_404(id)
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"message": "No se enviaron datos"}), 400
+
+    consulta.nombredemascota = data.get("nombredemascota", consulta.nombredemascota)
+    consulta.nombrededueno = data.get("nombrededueno", consulta.nombrededueno)
+    consulta.datosdeconsulta = data.get("datosdeconsulta", consulta.datosdeconsulta)
+    consulta.hora = data.get("hora", consulta.hora)
+    consulta.veterinario = data.get("veterinario", consulta.veterinario)
+
+    db.session.commit()
+    return jsonify({"message": "Consulta actualizada correctamente"})
+
+
+# --- API: ELIMINAR CONSULTA ---
+@main_bp.route("/api/consultas/<int:id>", methods=["DELETE"])
+def api_consulta_eliminar(id):
+    consulta = Consulta.query.get_or_404(id)
+    db.session.delete(consulta)
+    db.session.commit()
+    return jsonify({"message": "Consulta eliminada correctamente"})

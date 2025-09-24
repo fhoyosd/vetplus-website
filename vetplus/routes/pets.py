@@ -16,51 +16,6 @@ def pet_list():
         return render_template("pets/manage_pets.html", pets = pets)
     else:
         return "Acceso no autorizado", 403
-
-# @pets_bp.route("/pets/manage", methods=["GET", "POST"])
-# @login_required
-# def manage_pets():
-#     if request.method == "POST":
-#         try:
-#             # Datos del formulario
-#             name = request.form.get("name")
-#             species = request.form.get("species")
-#             breed = request.form.get("breed")
-#             age = request.form.get("age", type=int)
-#             weight = request.form.get("weight", type=float)
-#             owner_id = request.form.get("owner_id", type=int)
-
-#             new_pet = Pet(
-#                 name = name,
-#                 species = species,
-#                 breed = breed,
-#                 age = age,
-#                 weight = weight,
-#                 owner_id = owner_id
-#             )
-
-#             db.session.add(new_pet)
-#             db.session.commit()
-
-#             flash("Mascota registrada con éxito ✅", "success")
-#             return redirect(url_for("pets.manage_pets"))
-
-#         except Exception as e:
-#             db.session.rollback()
-#             flash(f"Error al registrar mascota ❌: {str(e)}", "danger")
-#             return redirect(url_for("pets.manage_pets"))
-
-#     pets = Pet.query.all()
-#     owners = User.query.filter_by(role = "owner").all()
-#     vets = User.query.filter_by(role = "vet").all()
-
-#     return render_template(
-#         "admin/pets/manage_pets.html",
-#         pets = pets,
-#         owners = owners,
-#         vets = vets
-#     )
-
     
 @pets_bp.route("/pets/add", methods = ["POST"])
 @login_required

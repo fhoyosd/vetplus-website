@@ -11,23 +11,49 @@
             margin: 0;
             background: #f8f8f8;
         }
-        nav {
-            background: #2d6a4f;
-            padding: 1rem;
+
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 20px 50px;
+            background-color: #b9d9d2;
         }
-        nav h1 {
-            color: #fff;
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 50px;
+        }
+
+        .logo h1 {
+            font-family: 'Just Me Again Down Here', cursive;
+            font-size: 26px;
             margin: 0;
         }
-        nav a {
-            color: #fff;
-            margin-left: 15px;
-            text-decoration: none;
+
+        .btn {
+            background: #7bb1c9;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
             font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #fff;
+            transition: transform 0.2s ease, background 0.3s ease;
+            text-decoration: none;
         }
+
+        .btn:hover {
+            background: #5c91a9;
+            transform: scale(1.05);
+        }
+
         .container {
             max-width: 600px;
             margin: 2rem auto;
@@ -69,13 +95,13 @@
     </style>
 </head>
 <body>
-    <nav>
-        <h1>VetPlus</h1>
-        <div>
-            <a href="/">Inicio</a>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Vetplus">
+            <h1>VET PLUS</h1>
         </div>
-    </nav>
-
+        <a href="{{ url_for('orders.manage_orders') }}" class="btn">Volver</a>
+    </header>
     <div class="container">
         <h2>Editar Pedido</h2>
         <form method="POST">

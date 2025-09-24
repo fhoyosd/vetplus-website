@@ -11,46 +11,49 @@
             margin: 0;
             background: #f8f8f8;
         }
-        nav {
-            background-color: #2a6f6f;
-            padding: 15px 40px;
+
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 20px 50px;
+            background-color: #b9d9d2;
         }
 
-        nav .logo {
-            color: #fff;
-            font-size: 22px;
-            font-weight: bold;
-            text-decoration: none;
+        .logo {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        nav .logo img {
-            height: 40px;
+        .logo img {
+            height: 50px;
         }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
+        .logo h1 {
+            font-family: 'Just Me Again Down Here', cursive;
+            font-size: 26px;
             margin: 0;
-            padding: 0;
         }
 
-        nav ul li a {
+        .btn {
+            background: #7bb1c9;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
             color: #fff;
+            transition: transform 0.2s ease, background 0.3s ease;
             text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
         }
 
-        nav ul li a:hover {
-            color: #d1f2f2;
+        .btn:hover {
+            background: #5c91a9;
+            transform: scale(1.05);
         }
+
         .container {
             max-width: 1100px;
             margin: 2rem auto;
@@ -80,7 +83,7 @@
         tr:nth-child(even) {
             background: #f4f4f4;
         }
-        .btn {
+        .actions-btn {
             padding: 6px 12px;
             border-radius: 5px;
             text-decoration: none;
@@ -99,15 +102,13 @@
     </style>
 </head>
 <body>
-    <nav>
-        <a href="{{ url_for('main.dashboard') }}" class="logo">
+    <header>
+        <div class="logo">
             <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Vetplus">
-            VET PLUS
-        </a>
-        <ul>
-            <li><a href="{{ url_for('main.dashboard') }}">Volver al panel</a></li>
-        </ul>
-    </nav>
+            <h1>VET PLUS</h1>
+        </div>
+        <a href="{{ url_for('main.dashboard') }}" class="btn">Volver al Panel</a>
+    </header>
 
     <div class="container">
         <h2>Gestión de Pedidos</h2>
@@ -131,8 +132,8 @@
                     <td>{{ order.status }}</td>
                     <td>{{ order.created_at.strftime("%d/%m/%Y %H:%M") }}</td>
                     <td>
-                        <a href="{{ url_for('orders.edit_order', order_id=order.id) }}" class="btn btn-edit">Editar</a>
-                        <a href="{{ url_for('orders.delete_order', order_id=order.id) }}" class="btn btn-delete" onclick="return confirm('¿Eliminar pedido?')">Eliminar</a>
+                        <a href="{{ url_for('orders.edit_order', order_id=order.id) }}" class="actions-btn btn-edit">Editar</a>
+                        <a href="{{ url_for('orders.delete_order', order_id=order.id) }}" class="actions-btn btn-delete" onclick="return confirm('¿Eliminar pedido?')">Eliminar</a>
                     </td>
                 </tr>
                 {% else %}
