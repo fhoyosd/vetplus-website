@@ -74,6 +74,12 @@
             flex-wrap: wrap;
             justify-content: center;
         }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
     </style>
 </head>
 
@@ -83,7 +89,10 @@
             <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Vetplus">
             <h1>VET PLUS</h1>
         </div>
-        <a href="{{ url_for('auth.logout') }}" class="btn">Cerrar sesión</a>
+        <div class="nav-buttons">
+            <a href="{{ url_for('main.home') }}" class="btn">Inicio</a>
+            <a href="{{ url_for('auth.logout') }}" class="btn">Cerrar sesión</a>
+        </div>
     </header>
 
     <main>

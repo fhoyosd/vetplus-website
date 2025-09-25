@@ -83,21 +83,35 @@
         tr:nth-child(even) {
             background: #f4f4f4;
         }
-        .actions-btn {
-            padding: 6px 12px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: bold;
-            margin: 0 3px;
-        }
-        .btn-edit {
-            background: #ffb703;
-            color: #fff;
-        }
+        .btn-edit,
         .btn-delete {
-            background: #d62828;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+            display: inline-block;
+            font-size: 14px;
+        }
+
+        .btn-edit {
+            background: #3498db;
             color: #fff;
+        }
+
+        .btn-edit:hover {
+            background: #2980b9;
+        }
+
+        .btn-delete {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        .btn-delete:hover {
+            background: #c0392b;
         }
     </style>
 </head>
@@ -132,8 +146,8 @@
                     <td>{{ order.status }}</td>
                     <td>{{ order.created_at.strftime("%d/%m/%Y %H:%M") }}</td>
                     <td>
-                        <a href="{{ url_for('orders.edit_order', order_id=order.id) }}" class="actions-btn btn-edit">Editar</a>
-                        <a href="{{ url_for('orders.delete_order', order_id=order.id) }}" class="actions-btn btn-delete" onclick="return confirm('¿Eliminar pedido?')">Eliminar</a>
+                        <a href="{{ url_for('orders.edit_order', order_id=order.id) }}" class="actions-btn btn-edit">✏️ Editar</a>
+                        <a href="{{ url_for('orders.delete_order', order_id=order.id) }}" class="actions-btn btn-delete" onclick="return confirm('¿Eliminar pedido?')">🗑 Eliminar</a>
                     </td>
                 </tr>
                 {% else %}

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask import Blueprint, render_template, redirect, url_for, flash, request, jsonify
 from flask_login import login_required
 
 from vetplus.models import Order
@@ -10,9 +10,9 @@ orders_bp = Blueprint("orders", __name__)
 @login_required
 def manage_orders():
     orders = Order.query.order_by(Order.created_at.desc()).all()
-    return render_template("orders/manage_orders.html", orders=orders)
+    return render_template("orders/manage_orders.html", orders = orders)
 
-@orders_bp.route("/orders/<int:order_id>/edit", methods = ["GET", "POST"])
+@orders_bp.route("/orders/edit/<int:order_id>", methods = ["GET", "POST"])
 @login_required
 def edit_order(order_id):
     order = Order.query.get_or_404(order_id)
@@ -29,7 +29,7 @@ def edit_order(order_id):
 
     return render_template("orders/edit_order.html", order = order)
 
-@orders_bp.route("/orders/<int:order_id>/delete", methods=["POST"])
+@orders_bp.route("/orders/delete/<int:order_id>", methods=["POST"])
 @login_required
 def delete_order(order_id):
     order = Order.query.get_or_404(order_id)
@@ -43,3 +43,10 @@ def delete_order(order_id):
         flash("Ocurrió un error al eliminar el pedido.", "danger")
 
     return redirect(url_for("orders.manage_orders"))
+
+@orders_bp.route("/orders/check/<int:order_id>")
+@login_required
+def check_order(order_id):
+    order = Order.query.get(order_id)
+    return jsonify({"exists": bool(order)})
+
