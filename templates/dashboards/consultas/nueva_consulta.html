@@ -234,9 +234,9 @@
         <nav>
             <a href="{{ url_for('main.home')}}">Inicio</a>
             <a href="{{url_for('main.dashboard')}}">Menu</a>
-            <a href="{{ url_for('main.consulta_dia')}}">Consulta</a>
+            <a href="{{ url_for('consulta.consulta_dia')}}">Consulta</a>
             <a href="{{ url_for('store.tienda')}}">Productos</a>
-            <a href="{{ url_for('main.informes') }}">Informes</a>
+            <a href="{{ url_for('informes.manage_informes') }}">Informes</a>
             <a href="#" onclick="abrirModal()">Salir</a>
         </nav>
     </header>
@@ -246,13 +246,13 @@
     <div class="container">
         <div class="sidebar">
             <p>Agendamiento</p>
-            <a href="{{ url_for('main.consulta') }}">Nueva Consulta</a>
+            <a href="{{ url_for('consulta.consulta') }}">Nueva Consulta</a>
             <a href="#" onclick="gestionarconsulta()">Gestionar Consulta</a>
         </div>
 
         <div class="form-container" id="main-content">
             <h2>Complete los datos de la consulta</h2>
-            <form id="consultaForm" method="POST" action="{{ url_for('main.consulta') }}">
+            <form id="consultaForm" method="POST" action="{{ url_for('consulta.consulta') }}">
                 <input type="text" name="nombredemascota" placeholder="Nombre de Mascota" required>
                 <input type="text" name="nombrededueno" placeholder="Nombre de dueño" required>
                 <input type="text" name="datosdeconsulta" placeholder="Datos de Consulta" required>
@@ -432,15 +432,15 @@
     </script>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <div class="flash-messages">
-        {% for category, message in messages %}
-        <div class="alert {{ category }}">
-            {{ message }}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+            <div class="alert {{ category }}">
+                {{ message }}
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
-    {% endif %}
+        {% endif %}
     {% endwith %}
 
     <div id="deleteModal" class="modal" style="display:none;">

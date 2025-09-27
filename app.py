@@ -13,6 +13,9 @@ from vetplus.routes.cart import cart_bp
 from vetplus.routes.checkout import checkout_bp
 from vetplus.routes.orders import orders_bp
 from vetplus.routes.admin_pets import admin_pets_bp
+from vetplus.routes.api import api_bp
+from vetplus.routes.consulta import consulta_bp
+from vetplus.routes.informes import informes_bp
 
 def create_app():
     app = Flask(__name__)
@@ -47,6 +50,9 @@ def create_app():
     app.register_blueprint(checkout_bp)
     app.register_blueprint(orders_bp)
     app.register_blueprint(admin_pets_bp)
+    app.register_blueprint(api_bp)
+    app.register_blueprint(consulta_bp)
+    app.register_blueprint(informes_bp)
 
     with app.app_context():
         db.create_all()

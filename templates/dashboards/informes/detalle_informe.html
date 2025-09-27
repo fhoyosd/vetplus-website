@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VetPlus | Informe de Venta #{{ order.id }}</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+</head>
+
+<body>
+    <h1>Informe de Venta #{{ order.id }}</h1>
+
+    <p><strong>Cliente:</strong> {{ order.full_name }}</p>
+    <p><strong>Dirección:</strong> {{ order.address }}</p>
+    <p><strong>Teléfono:</strong> {{ order.phone }}</p>
+    <p><strong>Método de Pago:</strong> {{ order.payment_method }}</p>
+    <p><strong>Fecha:</strong> {{ order.created_at.strftime("%Y-%m-%d %H:%M") }}</p>
+    <p><strong>Total:</strong> ${{ "%.2f"|format(order.total) }}</p>
+
+    <h2>Productos</h2>
+    <table border="1" cellpadding="6" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for d in detalles %}
+            <tr>
+                <td>{{ d.product.name }}</td>
+                <td>{{ d.quantity }}</td>
+                <td>${{ "%.2f"|format(d.subtotal) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('informes.manage_informes') }}">Volver</a>
+
+    <h3>Productos</h3>
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+        </tr>
+        {% for d in detalles %}
+        <tr>
+            <td>{{ d.product.name }}</td>
+            <td>{{ d.quantity }}</td>
+            <td>${{ d.subtotal }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

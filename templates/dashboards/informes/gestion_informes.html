@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo.png') }}">
+    <title>Vet Plus | Informes</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f7f7;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 40px;
+            max-width: 90%;
+            margin: 15px auto 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            margin: 0;
+            color: #000;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        nav a {
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            color: #000;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .title-bar {
+            background-color: #62acc2;
+            color: white;
+            font-size: 28px;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            max-width: 90%;
+            margin: 15px auto;
+            border-radius: 8px;
+        }
+
+        .btn-detalle {
+            padding: 8px 15px;
+            border-radius: 6px;
+            border: none;
+            background-color: #4d8ea1;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-detalle:hover {
+            background-color: #3d7b8d;
+        }
+
+        .container {
+            display: flex;
+            margin: 0 auto;
+            max-width: 90%;
+            gap: 20px;
+        }
+
+        .sidebar {
+            background-color: #cce4e4;
+            padding: 25px;
+            min-width: 200px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            margin: 15px 0;
+            color: black;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        .form-container {
+            background-color: #a7d2c6;
+            padding: 30px;
+            flex: 1;
+            border-radius: 8px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background: #fff;
+        }
+
+        th,
+        td {
+            border: 1px solid #666;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background: #4d8ea1;
+            color: #fff;
+        }
+
+        .btn-detalle {
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: #4d8ea1;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-detalle:hover {
+            background-color: #3d7b8d;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+        }
+
+        .modal-content table {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .modal-content th {
+            background-color: #4d8ea1;
+            color: white;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .pdf-btn {
+            margin-top: 10px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            background-color: #4d8ea1;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .pdf-btn:hover {
+            background-color: #3d7b8d;
+        }
+
+        .modal_fin {
+            display: none;
+            /* Oculto por defecto */
+            position: fixed;
+            z-index: 1000;
+            /* por encima del resto */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* fondo semitransparente */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenedor del modal */
+        .modal-content_fin {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Botones dentro del modal */
+        .modal-buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .modal-buttons button:first-child {
+            background-color: #ccc;
+        }
+
+        .modal-buttons button:last-child {
+            background-color: #d9534f;
+            color: white;
+        }
+
+        .modal-buttons button:hover {
+            transform: scale(1.05);
+        }
+
+        .flash-messages {
+            margin: 15px auto;
+            max-width: 90%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo Vetplus">
+            <h1>VET PLUS</h1>
+        </div>
+        <nav>
+            <a href="{{ url_for('main.home')}}">Inicio</a>
+            <a href="{{ url_for('main.dashboard')}}">Menu</a>
+            <a href="{{ url_for('consulta.consulta_dia')}}">Consulta</a>
+            <a href="{{ url_for('store.tienda')}}">Productos</a>
+            <a href="{{ url_for('informes.manage_informes') }}">Informes</a>
+            <a href="#" onclick="abrirModalfin()">Salir</a>
+        </nav>
+    </header>
+
+    <div class="title-bar">Informes</div>
+
+    <div class="container">
+        <div class="sidebar">
+            <p>Informes</p>
+            <a href="{{ url_for('informes.manage_informes') }}">Crear informe</a>
+            <a href="#">Cargar informe</a>
+        </div>
+
+        <div class="form-container">
+            <h2>Ventas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for venta in ventas %}
+                    <tr>
+                        <td>{{ venta.full_name }}</td>
+                        <td><button class="btn-detalle" data-id="{{ venta.id }}">Ver</button></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Modal unificado -->
+            <div id="detalleModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+        background: rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+                <div
+                    style="background:#fff; padding:20px; border-radius:8px; max-width:500px; margin:auto; position:relative;">
+                    <span onclick="cerrarModal()"></span>
+                    <h2 id="detalleCliente"></h2>
+                    <p><strong>Estado:</strong> <span id="detalleEstado"></span></p>
+                    <p><strong>Total:</strong> $<span id="detalleTotal"></span></p>
+                    <table id="detalleItems">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <button class="btn-detalle" id="btnPDF">Generar PDF</button>
+                    <button class="btn-detalle" onclick="cerrarDetalles()">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de cerrar sesión -->
+    <div id="logoutModal" class="modal_fin">
+        <div class="modal-content_fin">
+            <p>¿Seguro que quieres cerrar sesión?</p>
+            <div class="modal-buttons">
+                <button onclick="cerrarModalfin()">Cancelar</button>
+                <a href="{{ url_for('auth.logout') }}"><button>Cerrar sesión</button></a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
+    <script>
+        function abrirModalfin() {
+            document.getElementById("logoutModal").style.display = "flex";
+        }
+        function cerrarModalfin() {
+            document.getElementById("logoutModal").style.display = "none";
+        }
+
+        function cerrarDetalles() {
+            document.getElementById("detalleModal").style.display = "none";
+        }
+
+        let currentVenta = null;
+
+        document.querySelectorAll('.btn-detalle').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const orderId = this.dataset.id;
+                fetch(`/api/invoice/${orderId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        currentVenta = data;
+                        document.getElementById("detalleCliente").innerText = data.full_name;
+                        document.getElementById("detalleEstado").innerText = data.status;
+                        document.getElementById("detalleTotal").innerText = data.total;
+                        const tbody = document.querySelector("#detalleItems tbody");
+                        tbody.innerHTML = "";
+                        data.items.forEach(item => {
+                            tbody.innerHTML += `<tr><td>${item.product_name}</td><td>${item.quantity}</td><td>${item.subtotal}</td></tr>`;
+                        });
+                        document.getElementById("detalleModal").style.display = "flex";
+                    })
+                    .catch(err => console.error(err));
+            });
+        });
+
+        document.getElementById("btnPDF").addEventListener("click", function () {
+            if (!currentVenta) return;
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.text(`Informe de Venta - ${currentVenta.full_name}`, 20, 20);
+            doc.text(`ID: ${currentVenta.id}`, 20, 30);
+            doc.text(`Estado: ${currentVenta.status}`, 20, 40);
+            doc.text(`Total: $${currentVenta.total}`, 20, 50);
+
+            const tableColumn = ["Producto", "Cantidad", "Subtotal"];
+            const tableRows = currentVenta.items.map(item => [item.product_name, item.quantity.toString(), item.subtotal.toString()]);
+            doc.autoTable({ head: [tableColumn], body: tableRows, startY: 60 });
+            doc.save(`venta_${currentVenta.id}.pdf`);
+        });
+
+        function cerrarModal() {
+            document.getElementById("detalleModal").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>

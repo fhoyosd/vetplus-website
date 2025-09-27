@@ -200,14 +200,14 @@
         <nav>
             <a href="{{ url_for('main.home') }}">Inicio</a>
             <a href="{{ url_for('main.dashboard') }}">Menu</a>
-            <a href="{{ url_for('main.consulta') }}">Agendamiento</a>
+            <a href="{{ url_for('consulta.consulta') }}">Agendamiento</a>
             <a href="{{ url_for('store.tienda') }}">Productos</a>
-            <a href="{{ url_for('main.informes') }}">Informes</a>
+            <a href="{{ url_for('informes.manage_informes') }}">Informes</a>
             <a href="#" onclick="abrirModal()">Salir</a>
         </nav>
     </header>
 
-    <div class="title-bar">Consultas del día</div>
+    <div class="title-bar">Últimas consultas</div>
 
     <div class="container">
         <div class="sidebar">
@@ -215,7 +215,6 @@
         </div>
 
         <div class="form-container">
-            <h2>Últimas Consultas</h2>
             <div class="table-container">
                 <table>
                     <thead>
