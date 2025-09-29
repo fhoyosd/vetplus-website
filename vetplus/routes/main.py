@@ -47,7 +47,3 @@ def contacto():
         flash("Tu mensaje fue enviado con éxito.", "success")
         return redirect(url_for("main.contacto"))
     return render_template("contacto.html")
-
-@main_bp.route("/registro_medico")
-def registro_medico():
-    return render_template("dashboards/consultas/registro_medico.html")

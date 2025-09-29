@@ -1,5 +1,4 @@
 from flask import Blueprint, jsonify, request
-
 from vetplus.models import Order, OrderDetail, Consulta
 from vetplus.extensions import db
 
@@ -76,3 +75,44 @@ def api_consulta_eliminar(id):
     db.session.delete(consulta)
     db.session.commit()
     return jsonify({"message": "Consulta eliminada correctamente"})
+
+@api_bp.route("/api/consulta/<int:consulta_id>")
+def api_consulta(consulta_id):
+    consulta = Consulta.query.get_or_404(consulta_id)
+
+    data = {
+        "id": consulta.id,
+        "mascota": consulta.nombredemascota,
+        "dueno": consulta.propietario,   # ajusta al nombre real de tu modelo
+        "hora": consulta.hora.strftime("%Y-%m-%d %H:%M") if consulta.hora else "",
+        "veterinario": consulta.veterinario,  # ajusta al campo real
+        "datos": consulta.datos,              # ajusta al campo real
+        "registros": [
+            {
+                "examen": r.examen,
+                "diagnostico": r.diagnostico,
+                "tratamiento": r.tratamiento,
+                "recomendaciones": r.recomendaciones
+            }
+            for r in consulta.registros   # ⚠️ esto depende de cómo tienes la relación en tu modelo
+        ]
+    }
+    return jsonify(data)
+
+@api_bp.route("/api/invoice/<int:id>")
+def get_invoice(id):
+    venta = Order.query.get_or_404(id)
+    data = {
+        "id": venta.id,
+        "full_name": venta.full_name,
+        "status": venta.status,
+        "total": venta.total,
+        "items": [
+            {
+                "product_name": item.product_name,
+                "quantity": item.quantity,
+                "subtotal": item.subtotal
+            } for item in venta.items
+        ]
+    }
+    return jsonify(data)

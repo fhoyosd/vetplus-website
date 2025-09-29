@@ -17,9 +17,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 40px;
-            max-width: 90%;
-            margin: 15px auto 0 auto;
+            padding: 20px 50px;
+            background-color: #b9d9d2;
         }
 
         .logo {
@@ -137,6 +136,32 @@
         }
 
         .btn-detalle:hover {
+            background-color: #3d7b8d;
+        }
+
+        .btn-detalle-venta {
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: #4d8ea1;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-detalle-venta:hover {
+            background-color: #3d7b8d;
+        }
+
+        .btn-detalle-consulta {
+            padding: 6px 12px;
+            border-radius: 6px;
+            background-color: #4d8ea1;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-detalle-consulta:hover {
             background-color: #3d7b8d;
         }
 
@@ -269,9 +294,7 @@
         <nav>
             <a href="{{ url_for('main.home')}}">Inicio</a>
             <a href="{{ url_for('main.dashboard')}}">Menu</a>
-            <a href="{{ url_for('consulta.consulta_dia')}}">Consulta</a>
             <a href="{{ url_for('store.tienda')}}">Productos</a>
-            <a href="{{ url_for('informes.manage_informes') }}">Informes</a>
             <a href="#" onclick="abrirModalfin()">Salir</a>
         </nav>
     </header>
@@ -281,32 +304,57 @@
     <div class="container">
         <div class="sidebar">
             <p>Informes</p>
-            <a href="{{ url_for('informes.manage_informes') }}">Crear informe</a>
-            <a href="#">Cargar informe</a>
+            <a href="#" onclick="mostrarSeccion('ventas-section')">Ventas</a>
+            <a href="#" onclick="mostrarSeccion('consultas-section')">Consultas</a>
         </div>
 
         <div class="form-container">
-            <h2>Ventas</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Cliente</th>
-                        <th>Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for venta in ventas %}
-                    <tr>
-                        <td>{{ venta.full_name }}</td>
-                        <td><button class="btn-detalle" data-id="{{ venta.id }}">Ver</button></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            <!-- Sección Ventas -->
+            <div id="ventas-section">
+                <h2>Ventas</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for venta in ventas %}
+                        <tr>
+                            <td>{{ venta.full_name }}</td>
+                            <td><button class="btn-detalle-venta" data-id="{{ venta.id }}">Ver</button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Sección Consultas -->
+            <div id="consultas-section" style="display:none;">
+                <h2>Consultas</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mascota</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for consulta in consultas %}
+                        <tr>
+                            <td>{{ consulta.nombredemascota }}</td>
+                            <td><button class="btn-detalle-consulta" data-id="{{ consulta.id }}">Ver</button></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
             <!-- Modal unificado -->
             <div id="detalleModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
-        background: rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+            background: rgba(0,0,0,0.5); justify-content:center; align-items:center;">
                 <div
                     style="background:#fff; padding:20px; border-radius:8px; max-width:500px; margin:auto; position:relative;">
                     <span onclick="cerrarModal()"></span>
@@ -324,7 +372,32 @@
                         <tbody></tbody>
                     </table>
                     <button class="btn-detalle" id="btnPDF">Generar PDF</button>
-                    <button class="btn-detalle" onclick="cerrarDetalles()">Cerrar</button>
+                    <button class="btn-detalle" onclick="cerrarModalVenta()">Cerrar</button>
+                </div>
+            </div>
+
+            <div id="detalleConsultaModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+            background: rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+                <div style="background:#fff; padding:20px; border-radius:8px; max-width:500px; margin:auto; position:relative;">
+                    <span onclick="cerrarDetallesConsulta()"></span>
+                    <h2 id="consultaMascota"></h2>
+                    <p><strong>Dueño:</strong> <span id="consultaDueno"></span></p>
+                    <p><strong>Hora:</strong> <span id="consultaHora"></span></p>
+                    <p><strong>Veterinario:</strong> <span id="consultaVet"></span></p>
+                    <p><strong>Datos:</strong> <span id="consultaDatos"></span></p>
+                    <table id="consultaRegistros">
+                        <thead>
+                            <tr>
+                                <th>Examen</th>
+                                <th>Diagnóstico</th>
+                                <th>Tratamiento</th>
+                                <th>Recomendaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <button class="btn-detalle" id="btnPDFConsulta">Generar PDF</button>
+                    <button class="btn-detalle" onclick="cerrarModalConsulta()">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -345,6 +418,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 
     <script>
+        const { jsPDF } = window.jspdf;
+
+        // ------------------------
+        // MODALES
+        // ------------------------
         function abrirModalfin() {
             document.getElementById("logoutModal").style.display = "flex";
         }
@@ -352,13 +430,23 @@
             document.getElementById("logoutModal").style.display = "none";
         }
 
-        function cerrarDetalles() {
+        function cerrarModalVenta() {
             document.getElementById("detalleModal").style.display = "none";
         }
+        function cerrarModalConsulta() {
+            document.getElementById("detalleConsultaModal").style.display = "none";
+        }
 
+        function mostrarSeccion(id) {
+            document.querySelectorAll('.form-container > div').forEach(sec => sec.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+        }
+
+        // ------------------------
+        // DETALLES DE VENTA
+        // ------------------------
         let currentVenta = null;
-
-        document.querySelectorAll('.btn-detalle').forEach(btn => {
+        document.querySelectorAll('.btn-detalle-venta').forEach(btn => {
             btn.addEventListener('click', function () {
                 const orderId = this.dataset.id;
                 fetch(`/api/invoice/${orderId}`)
@@ -368,36 +456,113 @@
                         document.getElementById("detalleCliente").innerText = data.full_name;
                         document.getElementById("detalleEstado").innerText = data.status;
                         document.getElementById("detalleTotal").innerText = data.total;
+
                         const tbody = document.querySelector("#detalleItems tbody");
                         tbody.innerHTML = "";
                         data.items.forEach(item => {
-                            tbody.innerHTML += `<tr><td>${item.product_name}</td><td>${item.quantity}</td><td>${item.subtotal}</td></tr>`;
+                            tbody.innerHTML += `<tr>
+                                <td>${item.product_name}</td>
+                                <td>${item.quantity}</td>
+                                <td>${item.subtotal}</td>
+                            </tr>`;
                         });
+
                         document.getElementById("detalleModal").style.display = "flex";
-                    })
-                    .catch(err => console.error(err));
+                    });
             });
         });
 
+        // ------------------------
+        // DETALLES DE CONSULTA
+        // ------------------------
+        let currentConsulta = null;
+        document.querySelectorAll('.btn-detalle-consulta').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const consultaId = this.dataset.id;
+                fetch(`/api/consulta/${consultaId}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        currentConsulta = data;
+                        document.getElementById("consultaMascota").innerText = data.mascota;
+                        document.getElementById("consultaDueno").innerText = data.dueno;
+                        document.getElementById("consultaHora").innerText = data.hora;
+                        document.getElementById("consultaVet").innerText = data.veterinario;
+                        document.getElementById("consultaDatos").innerText = data.datos;
+
+                        const tbody = document.querySelector("#consultaRegistros tbody");
+                        tbody.innerHTML = "";
+                        data.registros.forEach(r => {
+                            tbody.innerHTML += `<tr>
+                                <td>${r.examen}</td>
+                                <td>${r.diagnostico}</td>
+                                <td>${r.tratamiento}</td>
+                                <td>${r.recomendaciones}</td>
+                            </tr>`;
+                        });
+
+                        document.getElementById("detalleConsultaModal").style.display = "flex";
+                    });
+            });
+        });
+
+        // ------------------------
+        // GENERAR PDF VENTA
+        // ------------------------
         document.getElementById("btnPDF").addEventListener("click", function () {
             if (!currentVenta) return;
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.text(`Informe de Venta - ${currentVenta.full_name}`, 20, 20);
-            doc.text(`ID: ${currentVenta.id}`, 20, 30);
-            doc.text(`Estado: ${currentVenta.status}`, 20, 40);
-            doc.text(`Total: $${currentVenta.total}`, 20, 50);
 
-            const tableColumn = ["Producto", "Cantidad", "Subtotal"];
-            const tableRows = currentVenta.items.map(item => [item.product_name, item.quantity.toString(), item.subtotal.toString()]);
-            doc.autoTable({ head: [tableColumn], body: tableRows, startY: 60 });
+            const doc = new jsPDF();
+            doc.setFontSize(18);
+            doc.text("Informe de Venta", 14, 20);
+
+            doc.setFontSize(12);
+            doc.text(`Cliente: ${currentVenta.full_name}`, 14, 35);
+            doc.text(`Estado: ${currentVenta.status}`, 14, 42);
+            doc.text(`Total: $${currentVenta.total}`, 14, 49);
+
+            doc.autoTable({
+                startY: 60,
+                head: [["Producto", "Cantidad", "Subtotal"]],
+                body: currentVenta.items.map(i => [i.product_name, i.quantity, i.subtotal]),
+                styles: { halign: "center" },
+                headStyles: { fillColor: [77, 142, 161] }
+            });
+
             doc.save(`venta_${currentVenta.id}.pdf`);
         });
 
-        function cerrarModal() {
-            document.getElementById("detalleModal").style.display = "none";
-        }
+        // ------------------------
+        // GENERAR PDF CONSULTA
+        // ------------------------
+        document.getElementById("btnPDFConsulta").addEventListener("click", function () {
+            if (!currentConsulta) return;
+
+            const doc = new jsPDF();
+            doc.setFontSize(18);
+            doc.text("Informe de Consulta", 14, 20);
+
+            doc.setFontSize(12);
+            doc.text(`Mascota: ${currentConsulta.mascota}`, 14, 35);
+            doc.text(`Dueño: ${currentConsulta.dueno}`, 14, 42);
+            doc.text(`Hora: ${currentConsulta.hora}`, 14, 49);
+            doc.text(`Veterinario: ${currentConsulta.veterinario}`, 14, 56);
+            doc.text(`Datos: ${currentConsulta.datos}`, 14, 63);
+
+            doc.autoTable({
+                startY: 75,
+                head: [["Examen", "Diagnóstico", "Tratamiento", "Recomendaciones"]],
+                body: currentConsulta.registros.map(r => [
+                    r.examen, r.diagnostico, r.tratamiento, r.recomendaciones
+                ]),
+                styles: { halign: "center" },
+                headStyles: { fillColor: [77, 142, 161] }
+            });
+
+            doc.save(`consulta_${currentConsulta.id}.pdf`);
+        });
     </script>
+
+
 </body>
 
 </html>

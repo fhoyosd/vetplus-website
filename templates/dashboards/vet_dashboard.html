@@ -25,7 +25,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 50px;
-            background-color: transparent;
+            background-color: #b9d9d2;
         }
 
         .logo {
@@ -52,9 +52,10 @@
 
         .nav-links a {
             text-decoration: none;
+            margin: 0 15px;
             color: #000;
-            font-family: 'Inter', sans-serif;
-            font-size: 16px;
+            font-weight: bold;
+            font-size: 18px;
             cursor: pointer;
         }
 
@@ -199,7 +200,7 @@
             <a href="{{ url_for('consulta.consulta') }}" class="menu-item">Agendar Consulta</a>
             <a href="{{ url_for('consulta.consulta_dia')}}" class="menu-item">Ultimas consultas</a>
             <a href="{{ url_for('store.tienda')}}" class="menu-item">Productos</a>
-            <a href="{{ url_for('main.registro_medico')}}" class="menu-item">Registro Medico</a>
+            <a href="{{ url_for('consulta.registro_medico', consulta_id=1)}}" class="menu-item">Registro Medico</a>
             <a href="{{ url_for('informes.manage_informes') }}" class="menu-item">Informes</a>
             <div class="menu-item">Notificaciones</div>
         </div>

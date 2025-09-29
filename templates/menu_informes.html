@@ -126,7 +126,6 @@
       <a href="{{ url_for('main.consulta') }}">Consulta</a>
       <a href="#">Agendamiento</a>
       <a href="#">Productos</a>
-      <a href="#">Informes</a>
       <a href="#">Salir</a>
     </div>
   </div>
@@ -136,7 +135,7 @@
 
   <!-- Menú de informes -->
   <div class="informes">
-    <div  class="menu-item">Registros médicos</div>
+    <a href="{{ url_for('consulta.registro_medico') }}" class="menu-item">Registro Medico</a>
     <a href="{{ url_for('main.consulta') }}" class="menu-item">Consultas</a>
     <div  class="menu-item">Productos</div>
     <div  class="menu-item">Existencias</div>

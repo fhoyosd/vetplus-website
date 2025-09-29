@@ -108,3 +108,13 @@ class Consulta(db.Model):
     datosdeconsulta = db.Column(db.Text, nullable = False)
     hora = db.Column(db.String(20), nullable = False)
     veterinario = db.Column(db.String(100), nullable = False)
+    registros = db.relationship("RegistroMedico", back_populates = "consulta", cascade = "all, delete-orphan")
+
+class RegistroMedico(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    consulta_id = db.Column(db.Integer, db.ForeignKey("consulta.id"), nullable = False)
+    examen = db.Column(db.Text, nullable = False) 
+    diagnostico = db.Column(db.Text, nullable = False)  
+    tratamiento = db.Column(db.Text, nullable = False)  
+    recomendaciones = db.Column(db.Text, nullable = True)  
+    consulta = db.relationship("Consulta", back_populates = "registros")

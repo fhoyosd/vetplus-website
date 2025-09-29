@@ -248,7 +248,7 @@
         <nav>
             <a href="{{ url_for('main.home' )}}"><button class="btn">Inicio</button></a>
             {% if current_user.is_authenticated %}
-            <a href="{{ url_for('main.dashboard' )}}"><button class="btn">Dashboard</button></a>
+            <a href="{{ url_for('main.dashboard' )}}"><button class="btn">Menu</button></a>
             {% else %}
             <a href="{{ url_for('auth.login') }}"><button class="btn">Iniciar sesión</button></a>
             {% endif %}
